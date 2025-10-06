@@ -1,5 +1,6 @@
 // require('dotenv').config({path:"./env"})//this is valid but it breaks the consistency of the code
-
+import app from "./app.js"//importing app from app.js
+//if we do like this it will give error because import export is not supported in node js directly to avoid this we use type module in package.json
 //path:"./env" tells about the path of the .env file
 import dotenv from "dotenv"//we can do like this to avoid the above
 // import mongoose from "mongoose"
@@ -11,9 +12,9 @@ dotenv.config({
 
 //approach 2 alag folder ke file me code likhke import karke execute kade
 //make file in index.js in db folder in src
-
-connectDB()//but only this will not work
+//but only this will not work
 //dotenv :-as early as possible import and configure dotenv do it on top
+connectDB()
 .then(()=>{
     app.listen(process.env.PORT||8000,()=>{
         console.log(`Server is runing at port:${process.env.PORT}`)
