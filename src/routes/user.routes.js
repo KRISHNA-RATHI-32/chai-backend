@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controller";
+import { registerUser } from "../controllers/user.controller.js";
 
 const router=Router();
 
-router.route("/register").post(registerUser.js)
+router.route("/register").post(registerUser);
 // router.route("/login").post()//login route,it is declared but not implemented as we have not created login function in controller
 
 
