@@ -1,15 +1,15 @@
 import { Router } from "express";
 import { registerUser } from "../controllers/user.controller.js";
-import { upload } from "../middlewares/multer.middleware.js";
+import { upload } from"../middlewares/multer.middleware.js";
 
 const router=Router();
 
 router.route("/register").post(
-    upload.fields([
+    upload.fields([ 
         {name:"avatar",
             maxCount:1//the maximum number of files that can be uploaded with this field name
         },
-        {name:"coverimage",
+        {name:"coverImage",
             maxCount:1
         }
     ]),

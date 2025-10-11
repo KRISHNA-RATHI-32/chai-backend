@@ -24,7 +24,6 @@ const userSchema=new Schema({
     fullname:{
         type:String,
         required:true,
-        unique:true,
         trim:true,
         index:true,
     },
@@ -35,7 +34,7 @@ const userSchema=new Schema({
     coverImage:{
         type:String,
     },
-    watchHistroy:{
+    watchHistory:{
         type:Schema.Types.ObjectId,
         ref:"Video"
     },
@@ -54,19 +53,19 @@ const userSchema=new Schema({
 userSchema.pre("save",async function(next){
     if(!this.isModified("password"))return next();
 
-    this.password=bcrypt.hash(this.password,10)//hash is a method which is used to encrypt and 10 which we have passed are the number of rounds associated with it 
+    this.password=await bcrypt.hash(this.password,10)//hash is a method which is used to encrypt and 10 which we have passed are the number of rounds associated with it 
     next()
     //whenever the data is saved its password is changed so this but this will create problem as it may change many times so we have to make a condition that the password is only changed when we changed the password or newly added this
 })
 //now we are going to make some method that crosschecks user input by asking user about it 
 //mongoose gives us the options for this
-userSchema.methods.password=async function(password){
+userSchema.methods.passwordCorrect=async function(password){
     return await bcrypt.compare(password,this.password)
 }
 //what will jwt do the things are genrally seen in .env file
 
 userSchema.methods.generateAccessToken=function(){
-    jwt.sign({
+   return jwt.sign({
         //payloads
         _id:this_id,
         email:this.email,
@@ -81,7 +80,7 @@ userSchema.methods.generateAccessToken=function(){
 userSchema.methods.generateRefreshToken=function(){
     jwt.sign({
         //payloads
-        _id:this_id,
+        _id:this._id,
        //this have less information
     }),
     process.env.REFRESH_TOKEN_SECRET,
@@ -95,6 +94,6 @@ userSchema.methods.generateRefreshToken=function(){
 //both are same but they differ by the usage
 
 export const User=mongoose.model("User",userSchema);
-
+     //this can directly contact to database as it is connected to mongoose 
 
 

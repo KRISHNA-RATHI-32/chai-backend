@@ -1,1 +1,1 @@
-export const DB_NAME="dabba"
+export const DB_NAME="constants_db"//name of the database

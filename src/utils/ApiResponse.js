@@ -15,3 +15,6 @@ class ApiResponse {
         this.success = statusCode < 400;
     }
 }
+export {ApiResponse}
+//this class will be used to send response to frontend in a structured way
+//we will use this class in controllers wherever we want to send response to frontend
